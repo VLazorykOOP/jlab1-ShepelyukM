@@ -1,11 +1,172 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<module type="JAVA_MODULE" version="4">
-  <component name="NewModuleRootManager" inherit-compiler-output="true">
-    <exclude-output />
-    <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
-    </content>
-    <orderEntry type="inheritedJdk" />
-    <orderEntry type="sourceFolder" forTests="false" />
-  </component>
-</module>
+//----завдання1----
+import java.util.Scanner;
+
+public class zavdannya1 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Введіть x: ");
+
+        while (!scanner.hasNextDouble()) {
+            System.out.println("Введіть число!");
+            scanner.next();
+        }
+        double x = scanner.nextDouble();
+
+        System.out.print("Введіть y: ");
+        while (!scanner.hasNextDouble()) {
+            System.out.println("Введіть число!");
+            scanner.next();
+        }
+        double y = scanner.nextDouble();
+
+        while (x * y == 0) {
+            System.out.println("Введіть нові значення.");
+            System.out.print("Введіть нове х: ");
+            while (!scanner.hasNextDouble()) {
+                System.out.println("Введіть число.");
+                scanner.next();
+            }
+            x = scanner.nextDouble();
+
+            System.out.print("Введіть новий у: ");
+            while (!scanner.hasNextDouble()) {
+                System.out.println("Введіть число.");
+                scanner.next();
+            }
+            y = scanner.nextDouble();
+        }
+
+        double result1 = (1 / (x * y)) + (1 / (Math.pow(x, 2) + Math.pow(y, 2))) * (x - y);
+        System.out.println("Результат (вхідні дані дійсного типу, результат - дійсного): " + result1);
+
+        int xInt = (int) x;
+        int yInt = (int) y;
+        double result2 = (1 / (xInt * yInt))
+                + (1 / (Math.pow(xInt, 2) + Math.pow(yInt, 2))) * (xInt - yInt);
+        System.out.println("Результат (вхідні дані цілого типу, результат - дійсного): " + result2);
+
+        int result3 = (int) ((1 / (x * y)) + (1 / (Math.pow(x, 2) + Math.pow(y, 2))) * (x - y));
+        System.out.println("Результат (вхідні дані дійсного типу, результат - цілого): " + result3);
+    }
+}
+//----завдання2----
+import java.util.Scanner;
+
+public class main1 {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Введіть кількість елементів масиву: ");
+        int n = input.nextInt();
+        int[] A = new int[n];
+        System.out.println("Введіть елементи масиву:");
+        for (int i = 0; i < n; i++) {
+            A[i] = input.nextInt();
+        }
+        int temp = 0, j = 0;
+        for (int i = 0; i < n; i++) {
+            if (A[i] < 0) {
+                if (i != j) {
+                    for (int u = i; u > 0; u--) {
+                        if (A[u - 1] < 0) {
+                            break;
+                        }
+                        temp = A[u - 1];
+                        A[u - 1] = A[u];
+                        A[u] = temp;
+                    }
+                }
+                j++;
+            }
+        }
+        System.out.println("Перетворений масив:");
+        for (int i = 0; i < n; i++) {
+            System.out.print(A[i] + " ");
+            if ((i + 1) % 10 == 0) {
+                System.out.println();
+            }
+        }
+        System.out.println("");
+    }
+}
+//----завдання3----
+import java.util.Scanner;
+
+public class zavdannya3 {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Введіть розмірність матриці: ");
+        int n = input.nextInt();
+        int[][] A = new int[n][n];
+        System.out.println("Введіть елементи матриці:");
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                A[i][j] = input.nextInt();
+            }
+        }
+        int maxRow = 0, maxElement = A[0][0];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (A[i][j] > maxElement) {
+                    maxElement = A[i][j];
+                    maxRow = i;
+                }
+            }
+        }
+        int u = maxRow;
+        int temp = 0;
+        if (u != 0) {
+            for (int i = 0; i < u; i++) {
+                for (int j = 0; j < n; j++) {
+                    temp = A[maxRow][j];
+                    A[maxRow][j] = A[maxRow - 1][j];
+                    A[maxRow - 1][j] = temp;
+                }
+                maxRow--;
+                temp = A[maxRow][0];
+            }
+        }
+        System.out.println("Результат:");
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                System.out.print(A[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+}
+//----завдання4----
+import java.util.Scanner;
+
+public class zavdannya4 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Введіть текст: ");
+        String text = scanner.nextLine();
+        String[] words = text.split("[\\s,.!?;:]+");
+        int maxCount = 0;
+        for (String word : words) {
+            int count = 0;
+            for (int i = 0; i < word.length(); i++) {
+                if (word.charAt(i) == 'a' || word.charAt(i) == 'A') {
+                    count++;
+                }
+            }
+            if (count > maxCount) {
+                maxCount = count;
+            }
+        }
+        System.out.print("Слова з найбільшою кількістю літер A: ");
+        for (String word : words) {
+            int count = 0;
+            for (int i = 0; i < word.length(); i++) {
+                if (word.charAt(i) == 'a' || word.charAt(i) == 'A') {
+                    count++;
+                }
+            }
+            if (count == maxCount) {
+                System.out.print(word + " ");
+            }
+        }
+    }
+}
